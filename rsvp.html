@@ -5,42 +5,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RSVP</title>
+<title>Confirmar Presença</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:#f6f1e9;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+  font-family: 'Montserrat', sans-serif;
+  background:#f6f1e9;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
 .container{
-max-width:380px;
-width:100%;
-padding:30px;
-text-align:center;
+  width:100%;
+  max-width:380px;
+  padding:30px;
+  text-align:center;
+}
+
+h2{
+  font-family: 'Playfair Display';
+  margin-bottom:20px;
 }
 
 input, select{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:20px;
-border:1px solid #ccc;
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:30px;
+  border:1px solid #ddd;
+  font-size:14px;
 }
 
 button{
-margin-top:15px;
-padding:14px;
-width:100%;
-border:none;
-border-radius:30px;
-background:#c6a96b;
-color:white;
+  margin-top:20px;
+  padding:14px;
+  width:100%;
+  border:none;
+  border-radius:30px;
+  background:#c6a96b;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+.sucesso{
+  margin-top:20px;
+  color:#6b8e6b;
+  font-size:14px;
+  display:none;
 }
 
 </style>
@@ -56,9 +77,9 @@ color:white;
 <input id="nome" placeholder="Seu nome completo">
 
 <select id="lado">
-<option value="">Noiva ou Noivo?</option>
-<option>Noiva</option>
-<option>Noivo</option>
+<option value="">Você é convidado da noiva ou do noivo?</option>
+<option value="Noiva">Noiva</option>
+<option value="Noivo">Noivo</option>
 </select>
 
 <select id="acompanhantes" onchange="mostrarCampos()">
@@ -70,46 +91,61 @@ color:white;
 
 <div id="campos"></div>
 
-<button onclick="enviar()">Confirmar</button>
+<button id="btn" onclick="enviar()">Confirmar presença</button>
+
+<div class="sucesso" id="msg">
+Presença confirmada com sucesso 🤍
+</div>
 
 </div>
 
 <script>
 
 function mostrarCampos(){
-let qtd = document.getElementById("acompanhantes").value
-let div = document.getElementById("campos")
+  let qtd = document.getElementById("acompanhantes").value
+  let div = document.getElementById("campos")
 
-div.innerHTML=""
+  div.innerHTML=""
 
-for(let i=1;i<=qtd;i++){
-div.innerHTML += `<input placeholder="Nome do acompanhante ${i}" id="ac${i}">`
-}
-}
-
-function enviar(){
-
-let nome = document.getElementById("nome").value
-let lado = document.getElementById("lado").value
-let qtd = document.getElementById("acompanhantes").value
-
-let dados = {
-nome,
-lado,
-qtd
+  for(let i=1;i<=qtd;i++){
+    div.innerHTML += `<input placeholder="Nome do acompanhante ${i}" id="ac${i}">`
+  }
 }
 
-for(let i=1;i<=qtd;i++){
-dados["ac"+i] = document.getElementById("ac"+i).value
-}
+async function enviar(){
 
-fetch("https://script.google.com/macros/s/AKfycbzVOMXoNQ29tQNAzM-hljX8-A7Flf5fC15DakT-Ijx6yZ4_xbjXaDEWYA3MriG9EirVdw/exec",{
-method:"POST",
-mode:"no-cors",
-body:new URLSearchParams(dados)
-})
+  let btn = document.getElementById("btn")
+  btn.disabled = true
+  btn.innerText = "Enviando..."
 
-alert("Presença confirmada!")
+  let nome = document.getElementById("nome").value
+  let lado = document.getElementById("lado").value
+  let qtd = document.getElementById("acompanhantes").value
+
+  let dados = {
+    nome,
+    lado,
+    qtd
+  }
+
+  for(let i=1;i<=qtd;i++){
+    dados["ac"+i] = document.getElementById("ac"+i).value || ""
+  }
+
+  try{
+    await fetch("https://script.google.com/macros/s/AKfycbzVOMXoNQ29tQNAzM-hljX8-A7Flf5fC15DakT-Ijx6yZ4_xbjXaDEWYA3MriG9EirVdw/exec",{
+      method:"POST",
+      body:new URLSearchParams(dados)
+    })
+
+    document.getElementById("msg").style.display = "block"
+    btn.innerText = "Confirmado ✓"
+
+  }catch(e){
+    alert("Erro ao enviar. Tente novamente.")
+    btn.disabled = false
+    btn.innerText = "Confirmar presença"
+  }
 
 }
 
