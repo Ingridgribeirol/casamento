@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Convite | Ingrid & Matheus</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+  --offwhite: #f6f1e9;
+  --gold: #c6a96b;
+  --text: #2b2b2b;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Montserrat;
+  background:var(--offwhite);
+  color:var(--text);
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* AQUARELA SOFISTICADA (NÃO REPETIDA) */
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  right:-15%;
+  width:70%;
+  height:100%;
+  background:url("img3.png") no-repeat center/cover;
+  opacity:0.18;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* CONTAINER */
+.convite{
+  max-width:420px;
+  margin:auto;
+}
+
+/* CAPA */
+
+.capa{
+  position:relative;
+  height:100vh;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.capa img{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:brightness(0.78);
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.05) 40%,
+    rgba(246,241,233,0.9) 95%
+  );
+}
+
+.conteudo-capa{
+  position:relative;
+  padding:40px 24px 60px;
+}
+
+/* NOMES — AGORA COM CONTRASTE CERTO */
+.nomes{
+  font-family:'Playfair Display';
+  font-size:42px;
+  color:#ffffff;
+  text-shadow:0 8px 24px rgba(0,0,0,0.45);
+  margin-bottom:12px;
+}
+
+.subtitulo{
+  font-size:14px;
+  letter-spacing:4px;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+.data{
+  font-size:16px;
+  color:#2b2b2b;
+  letter-spacing:2px;
+}
+
+/* SEÇÕES */
+
+.secao{
+  padding:70px 28px;
+  text-align:center;
+}
+
+.titulo{
+  font-family:'Playfair Display';
+  font-size:26px;
+  margin-bottom:18px;
+}
+
+.texto{
+  font-size:16px;
+  line-height:1.8;
+  max-width:320px;
+  margin:auto;
+  color:#4a4a4a;
+}
+
+/* DIVISOR ELEGANTE */
+.divisor{
+  width:40px;
+  height:1px;
+  background:var(--gold);
+  margin:25px auto;
+  opacity:0.6;
+}
+
+/* BOTÕES */
+
+.botoes{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:25px;
+}
+
+.botao{
+  padding:14px;
+  border-radius:40px;
+  text-decoration:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.botao-confirmar{
+  background:linear-gradient(135deg,var(--gold),#e3d2a2);
+  color:white;
+  box-shadow:0 10px 25px rgba(198,169,107,0.3);
+}
+
+.botao-confirmar:hover{
+  transform:translateY(-2px);
+}
+
+.botao-mapa{
+  background:rgba(255,255,255,0.6);
+  border:1px solid rgba(198,169,107,0.4);
+}
+
+/* RODAPÉ */
+
+.rodape{
+  padding:40px 20px 60px;
+  text-align:center;
+  font-size:14px;
+  color:#6b6b6b;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="convite">
+
+<!-- CAPA -->
+<section class="capa">
+  <img src="img1.png" alt="Fachada da igreja">
+  <div class="overlay"></div>
+
+  <div class="conteudo-capa">
+    <div class="subtitulo">Nosso Casamento</div>
+    <div class="nomes">Ingrid & Matheus</div>
+    <div class="data">27 de junho de 2026 • 18h20</div>
+  </div>
+</section>
+
+<!-- MENSAGEM -->
+<section class="secao">
+  <h2 class="titulo">Com alegria convidamos</h2>
+
+  <div class="divisor"></div>
+
+  <p class="texto">
+    Diante de Deus e com o coração repleto de gratidão,
+    convidamos você para testemunhar o início da nossa vida em comum,
+    em uma celebração marcada pela fé, amor e significado.
+  </p>
+</section>
+
+<!-- CERIMÔNIA -->
+<section class="secao">
+  <h2 class="titulo">Cerimônia</h2>
+
+  <div class="divisor"></div>
+
+  <p class="texto">
+    Igreja Nossa Senhora das Dores<br>
+    Cambuí – Campinas, SP<br><br>
+    27 de junho de 2026<br>
+    às 18h20
+  </p>
+</section>
+
+<!-- PROGRAMAÇÃO -->
+<section class="secao">
+  <h2 class="titulo">Programação</h2>
+
+  <div class="divisor"></div>
+
+  <p class="texto">
+    18h05 • chegada dos convidados<br>
+    18h20 • início da cerimônia
+  </p>
+</section>
+
+<!-- RECEPÇÃO -->
+<section class="secao">
+  <h2 class="titulo">Recepção</h2>
+
+  <div class="divisor"></div>
+
+  <p class="texto">
+    Após a cerimônia, celebraremos este momento com nossos convidados.<br><br>
+    O local será informado em breve.
+  </p>
+</section>
+
+<!-- BOTÕES -->
+<section class="secao">
+
+  <div class="botoes">
+
+    <a href="rsvp.html" class="botao botao-confirmar">
+      ✦ Confirmar presença
+    </a>
+
+    <a href="https://maps.google.com/?q=Igreja+Nossa+Senhora+das+Dores+Campinas"
+       target="_blank"
+       class="botao botao-mapa">
+      📍 Ver localização
+    </a>
+
+  </div>
+
+</section>
+
+<div class="rodape">
+  Será uma honra ter você conosco neste momento tão especial.
+</div>
+
+</div>
+
+</body>
+</html>

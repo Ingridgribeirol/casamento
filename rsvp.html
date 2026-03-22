@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RSVP</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f6f1e9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+max-width:380px;
+width:100%;
+padding:30px;
+text-align:center;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:20px;
+border:1px solid #ccc;
+}
+
+button{
+margin-top:15px;
+padding:14px;
+width:100%;
+border:none;
+border-radius:30px;
+background:#c6a96b;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Confirmar presença</h2>
+
+<input id="nome" placeholder="Seu nome completo">
+
+<select id="lado">
+<option value="">Noiva ou Noivo?</option>
+<option>Noiva</option>
+<option>Noivo</option>
+</select>
+
+<select id="acompanhantes" onchange="mostrarCampos()">
+<option value="0">Sem acompanhantes</option>
+<option value="1">1 acompanhante</option>
+<option value="2">2 acompanhantes</option>
+<option value="3">3 acompanhantes</option>
+</select>
+
+<div id="campos"></div>
+
+<button onclick="enviar()">Confirmar</button>
+
+</div>
+
+<script>
+
+function mostrarCampos(){
+let qtd = document.getElementById("acompanhantes").value
+let div = document.getElementById("campos")
+
+div.innerHTML=""
+
+for(let i=1;i<=qtd;i++){
+div.innerHTML += `<input placeholder="Nome do acompanhante ${i}" id="ac${i}">`
+}
+}
+
+function enviar(){
+
+let nome = document.getElementById("nome").value
+let lado = document.getElementById("lado").value
+let qtd = document.getElementById("acompanhantes").value
+
+let dados = {
+nome,
+lado,
+qtd
+}
+
+for(let i=1;i<=qtd;i++){
+dados["ac"+i] = document.getElementById("ac"+i).value
+}
+
+fetch("https://script.google.com/macros/s/AKfycbzVOMXoNQ29tQNAzM-hljX8-A7Flf5fC15DakT-Ijx6yZ4_xbjXaDEWYA3MriG9EirVdw/exec",{
+method:"POST",
+mode:"no-cors",
+body:new URLSearchParams(dados)
+})
+
+alert("Presença confirmada!")
+
+}
+
+</script>
+
+</body>
+</html>
