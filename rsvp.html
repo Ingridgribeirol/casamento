@@ -8,9 +8,8 @@
 <title>Confirmar Presença</title>
 
 <style>
-
 body{
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat;
   background:#f6f1e9;
   display:flex;
   justify-content:center;
@@ -26,7 +25,7 @@ body{
 }
 
 h2{
-  font-family: 'Playfair Display';
+  font-family:'Playfair Display';
   margin-bottom:20px;
 }
 
@@ -36,7 +35,6 @@ input, select{
   margin-top:10px;
   border-radius:30px;
   border:1px solid #ddd;
-  font-size:14px;
 }
 
 button{
@@ -47,20 +45,20 @@ button{
   border-radius:30px;
   background:#c6a96b;
   color:white;
-  font-size:15px;
   cursor:pointer;
-  transition:0.3s;
 }
 
-button:disabled{
-  opacity:0.6;
-  cursor:not-allowed;
+.voltar{
+  margin-top:10px;
+  display:inline-block;
+  font-size:13px;
+  text-decoration:none;
+  color:#777;
 }
 
 .sucesso{
   margin-top:20px;
   color:#6b8e6b;
-  font-size:14px;
   display:none;
 }
 
@@ -93,8 +91,11 @@ button:disabled{
 
 <button id="btn" onclick="enviar()">Confirmar presença</button>
 
+<a href="index.html" class="voltar">← Voltar ao convite</a>
+
 <div class="sucesso" id="msg">
-Presença confirmada com sucesso 🤍
+Presença confirmada com sucesso 🤍<br><br>
+Redirecionando...
 </div>
 
 </div>
@@ -123,28 +124,33 @@ async function enviar(){
   let qtd = document.getElementById("acompanhantes").value
 
   let dados = {
-    nome,
-    lado,
-    qtd
-  }
-
-  for(let i=1;i<=qtd;i++){
-    dados["ac"+i] = document.getElementById("ac"+i).value || ""
+    nome: nome,
+    lado: lado,
+    qtd: qtd,
+    ac1: document.getElementById("ac1")?.value || "",
+    ac2: document.getElementById("ac2")?.value || "",
+    ac3: document.getElementById("ac3")?.value || ""
   }
 
   try{
+
     await fetch("https://script.google.com/macros/s/AKfycbzVOMXoNQ29tQNAzM-hljX8-A7Flf5fC15DakT-Ijx6yZ4_xbjXaDEWYA3MriG9EirVdw/exec",{
       method:"POST",
       body:new URLSearchParams(dados)
     })
 
-    document.getElementById("msg").style.display = "block"
-    btn.innerText = "Confirmado ✓"
+    document.getElementById("msg").style.display="block"
+    btn.innerText="Confirmado ✓"
+
+    // REDIRECIONA EM 3 SEGUNDOS
+    setTimeout(()=>{
+      window.location.href = "index.html"
+    },3000)
 
   }catch(e){
-    alert("Erro ao enviar. Tente novamente.")
-    btn.disabled = false
-    btn.innerText = "Confirmar presença"
+    alert("Erro ao enviar.")
+    btn.disabled=false
+    btn.innerText="Confirmar presença"
   }
 
 }
