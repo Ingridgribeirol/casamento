@@ -7,59 +7,150 @@
 
 <title>Confirmar Presença</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
+
+:root{
+  --offwhite:#f6f1e9;
+  --gold:#c6a96b;
+  --text:#2b2b2b;
+}
+
+/* BASE */
+
 body{
-  font-family: Montserrat;
-  background:#f6f1e9;
+  margin:0;
+  font-family:Montserrat;
+  background:var(--offwhite);
+  color:var(--text);
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
+  overflow-x:hidden;
 }
+
+/* AQUARELA SUAVE */
+
+body::after{
+  content:"";
+  position:fixed;
+  top:0;
+  right:-20%;
+  width:70%;
+  height:100%;
+  background:url("img3.png") no-repeat center/cover;
+  opacity:0.15;
+  z-index:-1;
+}
+
+/* CONTAINER */
 
 .container{
   width:100%;
-  max-width:380px;
-  padding:30px;
+  max-width:420px;
+  padding:40px 28px;
   text-align:center;
 }
 
-h2{
+/* TÍTULO */
+
+.titulo{
   font-family:'Playfair Display';
-  margin-bottom:20px;
+  font-size:28px;
+  margin-bottom:10px;
 }
+
+.sub{
+  font-size:14px;
+  color:#777;
+  margin-bottom:25px;
+}
+
+/* INPUTS */
 
 input, select{
   width:100%;
   padding:14px;
   margin-top:10px;
   border-radius:30px;
-  border:1px solid #ddd;
+  border:1px solid rgba(0,0,0,0.08);
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(6px);
+  font-size:14px;
+  transition:0.3s;
 }
 
-button{
-  margin-top:20px;
+input:focus, select:focus{
+  outline:none;
+  border:1px solid var(--gold);
+}
+
+/* CAMPOS DINÂMICOS */
+
+#campos{
+  margin-top:5px;
+}
+
+/* BOTÃO */
+
+.botao{
+  margin-top:25px;
   padding:14px;
   width:100%;
   border:none;
-  border-radius:30px;
-  background:#c6a96b;
+  border-radius:40px;
+  background:linear-gradient(135deg,var(--gold),#e3d2a2);
   color:white;
+  font-size:14px;
+  letter-spacing:1px;
   cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 10px 25px rgba(198,169,107,0.3);
 }
+
+.botao:hover{
+  transform:translateY(-2px);
+}
+
+.botao:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+/* VOLTAR */
 
 .voltar{
-  margin-top:10px;
   display:inline-block;
+  margin-top:15px;
   font-size:13px;
-  text-decoration:none;
   color:#777;
+  text-decoration:none;
 }
 
+/* SUCESSO */
+
 .sucesso{
-  margin-top:20px;
-  color:#6b8e6b;
+  margin-top:25px;
   display:none;
+  animation:fade 0.6s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.sucesso-titulo{
+  font-family:'Playfair Display';
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+.sucesso-texto{
+  font-size:14px;
+  color:#6b6b6b;
 }
 
 </style>
@@ -70,7 +161,8 @@ button{
 
 <div class="container">
 
-<h2>Confirmar presença</h2>
+<div class="titulo">Confirme sua presença</div>
+<div class="sub">Ficaremos felizes em ter você conosco</div>
 
 <input id="nome" placeholder="Seu nome completo">
 
@@ -89,13 +181,16 @@ button{
 
 <div id="campos"></div>
 
-<button id="btn" onclick="enviar()">Confirmar presença</button>
+<button id="btn" class="botao" onclick="enviar()">Confirmar presença</button>
 
 <a href="index.html" class="voltar">← Voltar ao convite</a>
 
 <div class="sucesso" id="msg">
-Presença confirmada com sucesso 🤍<br><br>
-Redirecionando...
+  <div class="sucesso-titulo">Presença confirmada</div>
+  <div class="sucesso-texto">
+    Agradecemos com carinho 🤍<br><br>
+    Redirecionando para o convite...
+  </div>
 </div>
 
 </div>
@@ -105,7 +200,6 @@ Redirecionando...
 function mostrarCampos(){
   let qtd = document.getElementById("acompanhantes").value
   let div = document.getElementById("campos")
-
   div.innerHTML=""
 
   for(let i=1;i<=qtd;i++){
@@ -117,16 +211,12 @@ async function enviar(){
 
   let btn = document.getElementById("btn")
   btn.disabled = true
-  btn.innerText = "Enviando..."
-
-  let nome = document.getElementById("nome").value
-  let lado = document.getElementById("lado").value
-  let qtd = document.getElementById("acompanhantes").value
+  btn.innerText = "Confirmando..."
 
   let dados = {
-    nome: nome,
-    lado: lado,
-    qtd: qtd,
+    nome: document.getElementById("nome").value,
+    lado: document.getElementById("lado").value,
+    qtd: document.getElementById("acompanhantes").value,
     ac1: document.getElementById("ac1")?.value || "",
     ac2: document.getElementById("ac2")?.value || "",
     ac3: document.getElementById("ac3")?.value || ""
@@ -142,13 +232,12 @@ async function enviar(){
     document.getElementById("msg").style.display="block"
     btn.innerText="Confirmado ✓"
 
-    // REDIRECIONA EM 3 SEGUNDOS
     setTimeout(()=>{
-      window.location.href = "index.html"
+      window.location.href="index.html"
     },3000)
 
   }catch(e){
-    alert("Erro ao enviar.")
+    alert("Não foi possível enviar. Tente novamente.")
     btn.disabled=false
     btn.innerText="Confirmar presença"
   }
