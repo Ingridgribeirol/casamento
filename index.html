@@ -21,6 +21,10 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth; /* rolagem suave */
+}
+
 body{
   font-family:Montserrat;
   background:var(--offwhite);
@@ -29,13 +33,13 @@ body{
   overflow-x:hidden;
 }
 
-/* AQUARELA SOFISTICADA (NÃO REPETIDA) */
+/* AQUARELA EM TELA CHEIA */
 body::after{
   content:"";
   position:fixed;
   top:0;
-  right:-15%;
-  width:70%;
+  left:0;
+  width:100%;
   height:100%;
   background:url("img3.png") no-repeat center/cover;
   opacity:0.18;
@@ -43,13 +47,10 @@ body::after{
   pointer-events:none;
 }
 
-/* CONTAINER */
 .convite{
   max-width:420px;
   margin:auto;
 }
-
-/* CAPA */
 
 .capa{
   position:relative;
@@ -84,7 +85,6 @@ body::after{
   padding:40px 24px 60px;
 }
 
-/* NOMES — AGORA COM CONTRASTE CERTO */
 .nomes{
   font-family:'Playfair Display';
   font-size:42px;
@@ -106,8 +106,6 @@ body::after{
   letter-spacing:2px;
 }
 
-/* SEÇÕES */
-
 .secao{
   padding:70px 28px;
   text-align:center;
@@ -127,7 +125,6 @@ body::after{
   color:#4a4a4a;
 }
 
-/* DIVISOR ELEGANTE */
 .divisor{
   width:40px;
   height:1px;
@@ -136,25 +133,17 @@ body::after{
   opacity:0.6;
 }
 
-/* BOTÕES */
-
-.botoes{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:25px;
-}
-
 .botao{
   padding:14px;
   border-radius:40px;
   text-decoration:none;
-  display:flex;
+  display:inline-flex;
   justify-content:center;
   align-items:center;
   gap:8px;
   font-size:14px;
   transition:0.3s;
+  margin-top:20px;
 }
 
 .botao-confirmar{
@@ -171,8 +160,6 @@ body::after{
   background:rgba(255,255,255,0.6);
   border:1px solid rgba(198,169,107,0.4);
 }
-
-/* RODAPÉ */
 
 .rodape{
   padding:40px 20px 60px;
@@ -203,7 +190,6 @@ body::after{
 <!-- MENSAGEM -->
 <section class="secao">
   <h2 class="titulo">Com alegria convidamos</h2>
-
   <div class="divisor"></div>
 
   <p class="texto">
@@ -211,63 +197,54 @@ body::after{
     convidamos você para testemunhar o início da nossa vida em comum,
     em uma celebração marcada pela fé, amor e significado.
   </p>
+
+  <!-- BOTÃO CONFIRMAÇÃO AGORA AQUI -->
+  <a href="rsvp.html" class="botao botao-confirmar">
+    ✦ Confirmar presença
+  </a>
 </section>
 
 <!-- CERIMÔNIA -->
 <section class="secao">
   <h2 class="titulo">Cerimônia</h2>
-
   <div class="divisor"></div>
 
   <p class="texto">
-    Igreja Nossa Senhora das Dores<br>
-    Cambuí – Campinas, SP<br><br>
+    <strong>Paróquia Nossa Senhora das Dores</strong><br>
+    Rua Barreto Leme, 1550 – Cambuí<br>
+    Campinas – SP<br><br>
     27 de junho de 2026<br>
     às 18h40
   </p>
-</section>
 
-<!-- PROGRAMAÇÃO -->
-<section class="secao">
-  <h2 class="titulo">Programação</h2>
-
-  <div class="divisor"></div>
-
-  <p class="texto">
-    18h20 • chegada dos convidados<br>
-    18h40 • início da cerimônia
-  </p>
+  <!-- BOTÃO MAPA CERIMÔNIA -->
+  <a href="https://maps.google.com/?q=Paroquia+Nossa+Senhora+das+Dores+Campinas"
+     target="_blank"
+     class="botao botao-mapa">
+    📍 Abrir no mapa
+  </a>
 </section>
 
 <!-- RECEPÇÃO -->
 <section class="secao">
   <h2 class="titulo">Recepção</h2>
-
   <div class="divisor"></div>
 
   <p class="texto">
     Após a cerimônia, celebraremos este momento com nossos convidados.<br><br>
-    O local será informado em breve.
+
+    <strong>Castelo Montemor</strong><br>
+    Rua Sete, 111 – Recanto das Orquídeas<br>
+    Monte Mor – SP<br>
+    CEP 13199-392
   </p>
-</section>
 
-<!-- BOTÕES -->
-<section class="secao">
-
-  <div class="botoes">
-
-    <a href="rsvp.html" class="botao botao-confirmar">
-      ✦ Confirmar presença
-    </a>
-
-    <a href="https://maps.google.com/?q=Igreja+Nossa+Senhora+das+Dores+Campinas"
-       target="_blank"
-       class="botao botao-mapa">
-      📍 Ver localização
-    </a>
-
-  </div>
-
+  <!-- BOTÃO MAPA RECEPÇÃO -->
+  <a href="https://maps.google.com/?q=Castelo+Montemor+Monte+Mor"
+     target="_blank"
+     class="botao botao-mapa">
+    📍 Abrir no mapa
+  </a>
 </section>
 
 <div class="rodape">
