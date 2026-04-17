@@ -15,41 +15,107 @@
   --text: #2b2b2b;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth;}
 
 body{
   font-family:Montserrat;
   background:var(--offwhite);
   color:var(--text);
-  position:relative;
   overflow-x:hidden;
 }
 
-/* AQUARELA EM TELA CHEIA */
+/* AQUARELA ORIGINAL */
 body::after{
   content:"";
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background:url("img3.png") no-repeat center/cover;
   opacity:0.18;
   z-index:-1;
-  pointer-events:none;
 }
 
+/* INTRO */
+.intro{
+  position:fixed;
+  inset:0;
+  background:var(--offwhite);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  animation:fadeOut 1s ease forwards;
+  animation-delay:1s;
+}
+
+.intro h1{
+  font-family:'Playfair Display';
+  font-size:36px;
+  color:var(--gold);
+  animation:zoom 1s ease;
+}
+
+@keyframes zoom{
+  from{transform:scale(0.96);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+@keyframes fadeOut{
+  to{opacity:0;visibility:hidden;}
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.35);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9998;
+}
+
+.popup-box{
+  background:white;
+  padding:28px;
+  border-radius:18px;
+  max-width:320px;
+  text-align:center;
+  animation:fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(15px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.popup-box h3{
+  font-family:'Playfair Display';
+  margin-bottom:10px;
+}
+
+.popup-box p{
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+}
+
+.popup-box button{
+  margin-top:15px;
+  padding:12px 20px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,var(--gold),#e3d2a2);
+  color:white;
+  cursor:pointer;
+}
+
+/* CONVITE ORIGINAL */
 .convite{
   max-width:420px;
   margin:auto;
+  display:none;
 }
 
 .capa{
@@ -173,13 +239,32 @@ body::after{
 
 <body>
 
-<div class="convite">
+<!-- INTRO -->
+<div class="intro">
+  <h1>Ingrid & Matheus</h1>
+</div>
 
-<!-- CAPA -->
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h3>Informações importantes</h3>
+    <p>
+      Traje: esporte fino ou social<br>
+      ❌ Proibido usar branco, nude ou offwhite<br><br>
+      Confirmar presença até 31/05/2026 🤍<br><br>
+      Cerimônia às 18h30<br>
+      Chegue com antecedência
+    </p>
+    <button onclick="entrar()">Acessar convite</button>
+  </div>
+</div>
+
+<!-- CONVITE -->
+<div class="convite" id="convite">
+
 <section class="capa">
-  <img src="img1.png" alt="Fachada da igreja">
+  <img src="img1.png">
   <div class="overlay"></div>
-
   <div class="conteudo-capa">
     <div class="subtitulo">Nosso Casamento</div>
     <div class="nomes">Ingrid & Matheus</div>
@@ -187,9 +272,8 @@ body::after{
   </div>
 </section>
 
-<!-- MENSAGEM -->
 <section class="secao">
-  <h2 class="titulo">Com alegria convidamos</h2>
+  <h2 class="titulo">Com alegria convidamos você para nossa celebração</h2>
   <div class="divisor"></div>
 
   <p class="texto">
@@ -198,12 +282,10 @@ body::after{
     em uma celebração marcada pela fé, amor e significado.
   </p>
 
-  <!-- BOTÃO CONFIRMAR -->
   <a href="rsvp.html" class="botao botao-confirmar">
     ✦ Confirmar presença
   </a>
 
-  <!-- BOTÃO LISTA DE PRESENTES (CORRIGIDO) -->
   <a href="https://site.lejour.com.br/lista-de-presentes/ingridematheus"
      target="_blank"
      class="botao botao-confirmar">
@@ -212,7 +294,6 @@ body::after{
 
 </section>
 
-<!-- CERIMÔNIA -->
 <section class="secao">
   <h2 class="titulo">Cerimônia</h2>
   <div class="divisor"></div>
@@ -222,7 +303,7 @@ body::after{
     Rua Barreto Leme, 1550 – Cambuí<br>
     Campinas – SP<br><br>
     27 de junho de 2026<br>
-    às 18h40
+    às 18h30
   </p>
 
   <a href="https://maps.google.com/?q=Paroquia+Nossa+Senhora+das+Dores+Campinas"
@@ -232,7 +313,6 @@ body::after{
   </a>
 </section>
 
-<!-- RECEPÇÃO -->
 <section class="secao">
   <h2 class="titulo">Recepção</h2>
   <div class="divisor"></div>
@@ -242,8 +322,7 @@ body::after{
 
     <strong>Castelo Montemor</strong><br>
     Rua Sete, 111 – Recanto das Orquídeas<br>
-    Monte Mor – SP<br>
-    CEP 13199-392
+    Monte Mor – SP
   </p>
 
   <a href="https://maps.google.com/?q=Castelo+Montemor+Monte+Mor"
@@ -258,6 +337,19 @@ body::after{
 </div>
 
 </div>
+
+<script>
+
+setTimeout(()=>{
+  document.getElementById("popup").style.display="flex";
+},1000);
+
+function entrar(){
+  document.getElementById("popup").style.display="none";
+  document.getElementById("convite").style.display="block";
+}
+
+</script>
 
 </body>
 </html>
